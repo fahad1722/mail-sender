@@ -4,6 +4,8 @@ import com.mail.model.CompanyCareer;
 import com.mail.repository.CompanyCareerRepository;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @Slf4j
 public class CareerController {
 
@@ -22,6 +24,7 @@ public class CareerController {
     }
 
     @PostMapping("/careers")
+    @CacheEvict(value = "careers", allEntries = true)
     public ResponseEntity<CompanyCareer> addCareer(@RequestBody CompanyCareer career) {
         log.info("Received request to add career for company: {}", career.getCompanyName());
         CompanyCareer savedCareer = companyCareerRepository.save(career);
@@ -30,14 +33,16 @@ public class CareerController {
     }
 
     @GetMapping("/careers")
+    @Cacheable("careers")
     public ResponseEntity<List<CompanyCareer>> getAllCareers() {
-        log.info("Fetching all careers from database");
+        log.info("Fetching all careers from database (cache miss)");
         List<CompanyCareer> careers = companyCareerRepository.findAll();
         log.info("Retrieved {} careers", careers.size());
         return ResponseEntity.ok(careers);
     }
 
     @PutMapping("/careers/{id}")
+    @CacheEvict(value = "careers", allEntries = true)
     public ResponseEntity<CompanyCareer> updateCareer(@PathVariable Long id, @RequestBody CompanyCareer careerDetails) {
         log.info("Received request to update career ID: {}", id);
         return companyCareerRepository.findById(id)
@@ -55,6 +60,7 @@ public class CareerController {
     }
 
     @DeleteMapping("/careers/{id}")
+    @CacheEvict(value = "careers", allEntries = true)
     public ResponseEntity<Void> deleteCareer(@PathVariable Long id) {
         log.info("Received request to delete career ID: {}", id);
         if (companyCareerRepository.existsById(id)) {

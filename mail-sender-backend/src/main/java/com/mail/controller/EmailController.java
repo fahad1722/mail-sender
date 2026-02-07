@@ -5,6 +5,8 @@ import com.mail.model.EmailRequest;
 import com.mail.repository.EmailLogRepository;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
@@ -22,7 +24,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @Slf4j
 public class EmailController {
 
@@ -61,6 +63,7 @@ public class EmailController {
     }
 
     @PostMapping("/send-email")
+    @CacheEvict(value = "emails", allEntries = true)
     public ResponseEntity<Map<String, String>> sendEmail(@RequestBody EmailRequest request) {
         log.info("Attempting to send email to: {}", request.getEmail());
         try {
@@ -77,6 +80,7 @@ public class EmailController {
 
             // Attach resume
             FileSystemResource file = new FileSystemResource("src/main/resources/Fahad_Resume.pdf");
+            log.info("Resume loaded successfully..")
             helper.addAttachment("Fahad_Resume.pdf", file);
 
             mailSender.send(message);
@@ -102,15 +106,18 @@ public class EmailController {
     }
 
     @GetMapping("/emails")
+    @Cacheable("emails")
     public ResponseEntity<List<EmailLog>> getAllEmails() {
-        log.info("Fetching all email logs from database");
+        log.info("Fetching all email logs from database (cache miss)");
         List<EmailLog> emails = emailLogRepository.findAllByOrderBySentAtDesc();
         log.info("Retrieved {} email logs", emails.size());
         return ResponseEntity.ok(emails);
     }
 
     @GetMapping("/templates")
+    @Cacheable("templates")
     public ResponseEntity<Map<String, String>> getTemplates() {
+        log.info("Fetching templates (cache miss)");
         return ResponseEntity.ok(Map.of(
                 "subject", emailSubject,
                 "body", emailBodyTemplate.replace("{{SENDER_EMAIL}}", senderEmail)));
