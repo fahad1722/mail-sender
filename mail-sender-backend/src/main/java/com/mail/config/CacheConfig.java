@@ -15,7 +15,7 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager("emails", "templates");
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager("emails", "templates", "careers", "referrals");
         cacheManager.setCaffeine(Caffeine.newBuilder()
                 .expireAfterWrite(30, TimeUnit.SECONDS) // Cache expires after 30 seconds
                 .maximumSize(100));
