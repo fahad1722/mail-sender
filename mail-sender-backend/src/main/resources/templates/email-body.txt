@@ -1,0 +1,20 @@
+Hi there,
+
+I hope you’re doing well.
+
+I am currently working as an Associate Software Engineer at e2open, with 1.5 years of professional experience, where I specialize in building scalable backend systems using Java, Spring Boot, Microservices, and AWS. 
+
+Along with this, I am actively exploring and building AI-driven applications using Spring AI, with a focus on RAG, Vector Databases, ETL Pipelines, MCP Servers, and Tool Calling.
+
+I am now actively seeking Software Engineer / Java Backend / Microservices Developer opportunities. I wanted to check if there are any openings at your organization, or if you would be kind enough to refer me to any suitable roles.
+
+You can find my portfolio here for a quick overview of my work:
+🔗 https://www.fahadcodes.in
+📩 Email: {{SENDER_EMAIL}}
+
+I have attached my Resume for your reference. If there is any role matching my profile, I would be extremely grateful for your consideration. 
+
+Thank you very much for your time and support.
+
+Warm regards,
+Fahad Mohammed
