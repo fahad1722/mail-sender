@@ -80,7 +80,7 @@ public class EmailController {
 
             // Attach resume
             FileSystemResource file = new FileSystemResource("src/main/resources/Fahad_Resume.pdf");
-            log.info("Resume loaded successfully..")
+            log.info("Resume loaded successfully..");
             helper.addAttachment("Fahad_Resume.pdf", file);
 
             mailSender.send(message);
