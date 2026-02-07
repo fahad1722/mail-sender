@@ -484,29 +484,389 @@ body {
   font-size: 0.85rem;
 }
 
+/* ========================================
+   Mobile Responsive Styles
+======================================== */
 @media (max-width: 768px) {
+
+  /* Navbar - Complete mobile redesign */
+  .navbar {
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .nav-brand {
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .nav-title {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    order: 2;
+  }
+
+  .nav-link {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    flex: 0 0 auto;
+  }
+
+  /* Hide text on mobile add buttons, show only icon */
+  .nav-links>div {
+    display: flex;
+    gap: 6px;
+    margin-left: 0 !important;
+    width: 100%;
+    justify-content: center;
+    order: 3;
+    margin-top: 8px;
+  }
+
+  .nav-links>div .btn-primary {
+    padding: 8px 14px !important;
+    font-size: 0.75rem !important;
+    flex: 1;
+    max-width: 120px;
+  }
+
+  /* Main content */
+  .main-content {
+    padding: 1rem 0.75rem;
+  }
+
+  /* Hero section */
+  .hero-title {
+    font-size: 1.25rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Cards and forms */
+  .send-card {
+    margin: 0;
+    border-radius: 12px;
+  }
+
+  .email-form {
+    padding: 1.25rem 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.875rem;
+  }
+
+  .email-input {
+    padding: 12px 14px;
+    font-size: 16px;
+    /* Prevents iOS zoom on focus */
+  }
+
+  .submit-btn {
+    margin-top: 1.25rem;
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  /* Email list card - Better mobile header */
+  .email-list-card {
+    border-radius: 12px;
+    margin: 0 -0.25rem;
+  }
+
+  .email-list-card>div:first-child {
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 1rem !important;
+    align-items: stretch !important;
+  }
+
+  .email-list-card>div:first-child>div:first-child {
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  .email-list-card>div:first-child h2 {
+    font-size: 1.1rem !important;
+    text-align: center;
+  }
+
+  /* Hide header row on mobile */
   .email-header-row {
-    display: none;
+    display: none !important;
+  }
+
+  /* Email row - Card style on mobile */
+  .email-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 14px !important;
+    grid-template-columns: unset !important;
+    border-bottom: 1px solid var(--slate-100);
+  }
+
+  .email-row:last-child {
+    border-bottom: none;
+  }
+
+  .email-address-wrapper {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .email-address {
+    font-size: 0.9rem;
+    word-break: break-all;
+    white-space: normal;
+    flex: 1 1 100%;
+  }
+
+  .email-meta {
+    font-size: 0.8rem;
+    white-space: normal !important;
+  }
+
+  .copy-btn {
+    opacity: 1;
+    transform: translateX(0);
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+
+  /* Status pills */
+  .status-pill {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+
+  /* Referrals/Careers page specific */
+  .email-row>a {
+    font-size: 0.8rem !important;
+    word-break: break-all;
+    white-space: normal !important;
+  }
+
+  /* Action buttons on mobile */
+  .email-row>div:last-child {
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .email-row .btn-secondary {
+    padding: 8px 12px !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Search input on mobile */
+  .search-input {
+    width: 100% !important;
+    font-size: 16px !important;
+  }
+
+  /* Stats grid */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  /* Tabs */
+  .filter-tabs {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+  }
+
+  /* Features */
+  .features-section {
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+    gap: 16px;
+  }
+
+  .feature-item {
+    padding: 1.25rem;
+  }
+
+  .feature-icon {
+    font-size: 1.5rem;
+  }
+
+  .feature-item h3 {
+    font-size: 1rem;
+  }
+
+  .feature-item p {
+    font-size: 0.85rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 1.5rem 0;
+    font-size: 0.75rem;
+  }
+
+  /* Email history container */
+  .email-history-container {
+    padding: 0 0.5rem;
+  }
+
+  .email-history-wrapper {
+    padding: 0;
+  }
+
+  /* Modal - Full mobile optimization */
+  .modal-overlay {
+    padding: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .modal-content {
+    max-width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modal-header {
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+  }
+
+  .modal-header h2 {
+    font-size: 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 10px;
+    position: sticky;
+    bottom: 0;
+    background: var(--slate-50);
+  }
+
+  .modal-footer .btn-secondary,
+  .modal-footer .btn-primary {
+    width: 100%;
+    padding: 14px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* Extra small devices (iPhone SE, etc) */
+@media (max-width: 430px) {
+  .navbar {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .nav-brand svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-title {
+    font-size: 0.9rem;
+  }
+
+  .nav-link {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+  }
+
+  .main-content {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .email-form {
+    padding: 1rem 0.875rem;
+  }
+
+  .email-input {
+    padding: 12px;
+  }
+
+  .submit-btn {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  .email-list-card>div:first-child h2 {
+    font-size: 1rem !important;
   }
 
   .email-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 16px;
+    padding: 12px !important;
   }
 
-  .stats-grid {
-    grid-template-columns: 1fr;
+  .email-address {
+    font-size: 0.85rem;
   }
 
-  .status-pill {
-    align-self: flex-start;
-    margin-top: 4px;
+  .feature-item {
+    padding: 1rem;
   }
 
-  .features-section {
-    grid-template-columns: 1fr;
-    margin-top: 3rem;
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .nav-links>div .btn-primary {
+    font-size: 0.7rem !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Export button hide text on very small screens */
+  .btn-secondary svg+span,
+  .email-list-card .btn-secondary {
+    font-size: 0.75rem;
   }
 }
 
