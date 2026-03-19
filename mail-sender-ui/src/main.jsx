@@ -6,6 +6,7 @@ import EmailHistory from './EmailHistory.jsx'
 import Careers from './Careers.jsx'
 import Referrals from './Referrals.jsx'
 import Templates from './Templates.jsx'
+import HrContacts from './HrContacts.jsx'
 import Layout from './Layout.jsx'
 import './index.css'
 
@@ -18,6 +19,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/history" element={<EmailHistory />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/referrals" element={<Referrals />} />
+          <Route path="/hrs" element={<HrContacts />} />
           <Route path="/templates" element={<Templates />} />
         </Route>
       </Routes>

@@ -6,9 +6,11 @@ import API_BASE_URL from './config';
 function Layout() {
     const location = useLocation();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalType, setModalType] = useState('career'); // 'career' or 'referral'
+    const [modalType, setModalType] = useState('career'); // 'career', 'referral', or 'hr'
     const [companyName, setCompanyName] = useState('');
     const [link, setLink] = useState('');
+    const [emailId, setEmailId] = useState('');
+    const [mobileNumber, setMobileNumber] = useState('');
     const [submitting, setSubmitting] = useState(false);
     const [status, setStatus] = useState(null);
 
@@ -16,6 +18,8 @@ function Layout() {
         setModalType(type);
         setCompanyName('');
         setLink('');
+        setEmailId('');
+        setMobileNumber('');
         setStatus(null);
         setIsModalOpen(true);
     };
@@ -25,10 +29,12 @@ function Layout() {
         setSubmitting(true);
         setStatus(null);
 
-        const endpoint = modalType === 'career' ? '/api/careers' : '/api/referrals';
+        const endpoint = modalType === 'career' ? '/api/careers' : modalType === 'referral' ? '/api/referrals' : '/api/hrs';
         const body = modalType === 'career'
             ? { companyName, careerLink: link }
-            : { companyName, linkedInUrl: link };
+            : modalType === 'referral'
+            ? { companyName, linkedInUrl: link }
+            : { companyName, emailId, mobileNumber, linkedInUrl: link };
 
         try {
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -38,14 +44,16 @@ function Layout() {
             });
 
             if (response.ok) {
-                setStatus({ type: 'success', message: `${modalType === 'career' ? 'Career' : 'Referral'} saved!` });
+                setStatus({ type: 'success', message: `${modalType === 'career' ? 'Career' : modalType === 'referral' ? 'Referral' : 'HR Contact'} saved!` });
                 setCompanyName('');
                 setLink('');
+                setEmailId('');
+                setMobileNumber('');
                 setTimeout(() => {
                     setIsModalOpen(false);
                     setStatus(null);
                     // Refresh current page
-                    window.dispatchEvent(new Event(modalType === 'career' ? 'careerAdded' : 'referralAdded'));
+                    window.dispatchEvent(new Event(modalType === 'career' ? 'careerAdded' : modalType === 'referral' ? 'referralAdded' : 'hrAdded'));
                 }, 1500);
             } else {
                 setStatus({ type: 'error', message: 'Failed to save.' });
@@ -72,6 +80,7 @@ function Layout() {
                     <Link to="/history" className={`nav-link ${location.pathname === '/history' ? 'active' : ''}`}>History</Link>
                     <Link to="/careers" className={`nav-link ${location.pathname === '/careers' ? 'active' : ''}`}>Careers</Link>
                     <Link to="/referrals" className={`nav-link ${location.pathname === '/referrals' ? 'active' : ''}`}>Referrals</Link>
+                    <Link to="/hrs" className={`nav-link ${location.pathname === '/hrs' ? 'active' : ''}`}>HRs</Link>
                     <Link to="/templates" className={`nav-link ${location.pathname === '/templates' ? 'active' : ''}`}>Templates</Link>
 
                     <div style={{ display: 'flex', gap: '8px', marginLeft: '12px' }}>
@@ -80,6 +89,9 @@ function Layout() {
                         </button>
                         <button onClick={() => openModal('referral')} className="btn-primary" style={{ padding: '8px 12px', fontSize: '0.8rem' }}>
                             + Referral
+                        </button>
+                        <button onClick={() => openModal('hr')} className="btn-primary" style={{ padding: '8px 12px', fontSize: '0.8rem' }}>
+                            + HR
                         </button>
                     </div>
                 </div>
@@ -93,7 +105,7 @@ function Layout() {
                 <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
                         <div className="modal-header">
-                            <h2>{modalType === 'career' ? 'Track Career Page' : 'Add LinkedIn Referral'}</h2>
+                            <h2>{modalType === 'career' ? 'Track Career Page' : modalType === 'referral' ? 'Add LinkedIn Referral' : 'Add HR Contact'}</h2>
                             <button className="close-btn" onClick={() => setIsModalOpen(false)}>&times;</button>
                         </div>
                         <form onSubmit={handleSubmit}>
@@ -109,6 +121,32 @@ function Layout() {
                                         required
                                     />
                                 </div>
+                                {modalType === 'hr' && (
+                                    <>
+                                        <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                                            <label>Email ID</label>
+                                            <input
+                                                type="email"
+                                                className="email-input"
+                                                placeholder="hr@company.com"
+                                                value={emailId}
+                                                onChange={e => setEmailId(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                                            <label>Mobile Number</label>
+                                            <input
+                                                type="text"
+                                                className="email-input"
+                                                placeholder="+91 9876543210"
+                                                value={mobileNumber}
+                                                onChange={e => setMobileNumber(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </>
+                                )}
                                 <div className="form-group">
                                     <label>{modalType === 'career' ? 'Career Page URL' : 'LinkedIn Profile URL'}</label>
                                     <input
