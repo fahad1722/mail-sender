@@ -9,7 +9,6 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -78,10 +77,10 @@ public class EmailController {
             String body = emailBodyTemplate.replace("{{SENDER_EMAIL}}", senderEmail);
             helper.setText(body);
 
-            // Attach resume
-            FileSystemResource file = new FileSystemResource("src/main/resources/Fahad_Resume.pdf");
-            log.info("Resume loaded successfully..");
-            helper.addAttachment("Fahad_Resume.pdf", file);
+            // Attach resume from the classpath so it resolves inside the JAR/Docker image
+            ClassPathResource resume = new ClassPathResource("Fahad_Resume.pdf");
+            helper.addAttachment("Fahad_Resume.pdf", resume);
+            log.info("Resume attached successfully");
 
             mailSender.send(message);
             log.info("✅ Successfully sent email to: {}", request.getEmail());
